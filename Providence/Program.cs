@@ -18,6 +18,7 @@ builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingPr
 
 builder.Services.AddScoped<AccountService, AccountServiceImpl>();
 builder.Services.AddScoped<BlogService, BlogServiceImpl>();
+builder.Services.AddScoped<CouponsService, CouponsServiceImpl>();
 
 var app = builder.Build();
 
