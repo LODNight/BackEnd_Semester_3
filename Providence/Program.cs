@@ -17,6 +17,8 @@ var connectionString = builder.Configuration["ConnectionStrings:DefaultConnectio
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
 builder.Services.AddScoped<AccountService, AccountServiceImpl>();
+builder.Services.AddScoped<CategoryService, CategoryServiceImpl>();
+builder.Services.AddScoped<ProductService, ProductServiceImpl>();
 builder.Services.AddScoped<BlogService, BlogServiceImpl>();
 builder.Services.AddScoped<CouponsService, CouponsServiceImpl>();
 

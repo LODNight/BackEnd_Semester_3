@@ -147,6 +147,7 @@ public class AccountController : Controller
     {
         try
         {
+            account.CreatedAt = account.CreatedAt;
             account.UpdatedAt = DateTime.Now;
 
             return Ok(new
@@ -172,6 +173,7 @@ public class AccountController : Controller
     {
         try
         {
+            account.UpdatedAt = DateTime.Now;
             if (string.IsNullOrEmpty(account.Password))
             {
                 account.Password = accountService.findByIdNoTracking(account.AccountId).Password;
