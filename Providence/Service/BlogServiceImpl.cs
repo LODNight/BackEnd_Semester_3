@@ -13,7 +13,6 @@ public class BlogServiceImpl : BlogService
 {
     private DatabaseContext db;
     private IConfiguration configuration;
-    private AccountService accountService;
 
     public BlogServiceImpl(DatabaseContext _db, IConfiguration configuration)
     {
@@ -39,6 +38,20 @@ public class BlogServiceImpl : BlogService
         }
     }
 
+    // Delete 
+    public bool Delete(int id)
+    {
+        try
+        {
+            db.Blogs.Remove(db.Blogs.Find(id));
+            return db.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
+    }
     // ============================== 
     // FInd
     // ============================== 

@@ -195,6 +195,26 @@ public class AccountController : Controller
         }
     }
 
+    // ===============================
+    // ============== DELETE
+    // ===============================
 
-
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpDelete("delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            return Ok(new
+            {
+                status = accountService.Delete(id)
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
 }
