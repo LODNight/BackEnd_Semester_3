@@ -1,25 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.SqlServer.Server;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using System.Diagnostics;
-using System.Globalization;
-
 
 namespace Providence.Controllers;
-[Route("api/coupons")]
-public class CouponsController : Controller
+[Route("api/order")]
+public class OrderController : Controller
 {
-    private CouponsService couponsService;
+    private OrderService orderService;
+    private OrderDetailService orderDetailService;
 
-    public CouponsController(CouponsService couponsService)
+    public OrderController(OrderService orderService, OrderDetailService orderDetailService)
     {
-        this.couponsService = couponsService;
+        this.orderService = orderService;
+        this.orderDetailService = orderDetailService;
     }
-
     // ===============================
-    // ============== GET
+    // ============== GET GET
     // ===============================
 
     // Find All
@@ -29,7 +27,7 @@ public class CouponsController : Controller
     {
         try
         {
-            return Ok(couponsService.findAll());
+            return Ok(orderService.findAll());
         }
         catch (Exception ex)
         {
@@ -38,14 +36,14 @@ public class CouponsController : Controller
         }
     }
 
-    // Find All
+    // Find Order Detail
     [Produces("application/json")]
-    [HttpGet("searchByName/{name}")]
-    public IActionResult SearchByName(string name)
+    [HttpGet("findOrderDetail/{id}")]
+    public IActionResult FindOrderDetail(int id)
     {
         try
         {
-            return Ok(couponsService.searchByName(name));
+            return Ok(orderDetailService.findOrderDetail(id));
         }
         catch (Exception ex)
         {
@@ -53,23 +51,21 @@ public class CouponsController : Controller
             return BadRequest();
         }
     }
-
 
     // ===============================
     // ============== POST
     // ===============================
-
-    // Create New Coupons
+    // Create New Order
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("create")]
-    public IActionResult Create([FromBody] Coupon coupon)
+    public IActionResult Create([FromBody] Order Order)
     {
         try
         {
             return Ok(new
             {
-                status = couponsService.create(coupon)
+                status = orderService.create(Order)
             });
         }
         catch (Exception ex)
@@ -78,26 +74,24 @@ public class CouponsController : Controller
             return BadRequest();
         }
     }
-
 
     // ===============================
     // ============== PUT
     // ===============================
 
-    // Update Information Coupons
+    // Update Information Order
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("update")]
-    public IActionResult UpdateInformation([FromBody] Coupon coupon)
+    public IActionResult Update([FromBody] Order Order)
     {
         try
         {
-            coupon.UpdatedAt = DateTime.Now;
+            Order.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
-
-                status = couponsService.update(coupon)
+                status = orderService.update(Order)
             });
 
         }
@@ -107,7 +101,7 @@ public class CouponsController : Controller
             return BadRequest();
         }
     }
-
+    
     // ===============================
     // ============== DELETE
     // ===============================
@@ -121,7 +115,7 @@ public class CouponsController : Controller
         {
             return Ok(new
             {
-                status = couponsService.Delete(id)
+                status = orderService.Delete(id)
             });
         }
         catch (Exception ex)
@@ -130,5 +124,4 @@ public class CouponsController : Controller
             return BadRequest();
         }
     }
-
 }

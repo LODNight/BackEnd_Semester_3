@@ -1,11 +1,7 @@
 ﻿
 
-using Azure.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Providence.Models;
 using System.Diagnostics;
-using System.Globalization;
 
 namespace Providence.Service;
 
@@ -59,6 +55,22 @@ public class CouponsServiceImpl : CouponsService
         }).ToList();
     }
 
+    // Search By Name
+    public dynamic searchByName(string name)
+    {
+        return db.Coupons.Where(p => p.CouponName.Contains(name)).Select(coupon => new
+        {
+            id = coupon.CouponId,
+            couponname = coupon.CouponName,
+            coupontypeid = coupon.CouponsTypeId,
+            coupontypename = coupon.CouponsType.NameType,
+            discount = coupon.Discount,
+            discription = coupon.Description,
+            createdAt = coupon.CreatedAt,
+            updatedAt = coupon.UpdatedAt,
+        }).ToList();
+    }
+
     // Update
     public bool update(Coupon coupon)
     {
@@ -87,4 +99,6 @@ public class CouponsServiceImpl : CouponsService
             return false;
         }
     }
+
+   
 }

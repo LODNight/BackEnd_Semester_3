@@ -62,6 +62,8 @@ public class BlogServiceImpl : BlogService
         return db.Blogs.Select(blog => new
         {
             id = blog.BlogId,
+            name = blog.BlogName,
+            image = blog.BlogImage,
             shortdescription = blog.ShortDescription,
             longdescription = blog.LongDescription,
             hide = blog.Hide,
