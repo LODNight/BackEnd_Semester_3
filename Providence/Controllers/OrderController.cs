@@ -36,6 +36,9 @@ public class OrderController : Controller
         }
     }
 
+    // =============================
+    // ========== Order Detail
+
     // Find Order Detail
     [Produces("application/json")]
     [HttpGet("findOrderDetail/{id}")]
@@ -59,13 +62,13 @@ public class OrderController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("create")]
-    public IActionResult Create([FromBody] Order Order)
+    public IActionResult Create([FromBody] Order order)
     {
         try
         {
             return Ok(new
             {
-                status = orderService.create(Order)
+                status = orderService.create(order)
             });
         }
         catch (Exception ex)
@@ -75,6 +78,28 @@ public class OrderController : Controller
         }
     }
 
+    // =============================
+    // ========== Order Detail
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("createDetail")]
+    public IActionResult CreateOrderDetail([FromBody] OrderDetail orderDetail)
+    {
+        try
+        {
+            return Ok(new
+            {
+                status = orderDetailService.create(orderDetail)
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+
     // ===============================
     // ============== PUT
     // ===============================
@@ -83,15 +108,15 @@ public class OrderController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("update")]
-    public IActionResult Update([FromBody] Order Order)
+    public IActionResult Update([FromBody] Order order)
     {
         try
         {
-            Order.UpdatedAt = DateTime.Now;
+            order.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
-                status = orderService.update(Order)
+                status = orderService.update(order)
             });
 
         }

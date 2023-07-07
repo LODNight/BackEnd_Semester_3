@@ -48,6 +48,8 @@ public class OrderDetailServiceImpl : OrderDetailService
             id = order.OrderId,
             accountId = order.Order.AccountId,
             accountName = order.Order.Account.Firstname + ' ' + order.Order.Account.Lastname,
+            couponId = order.Order.Coupon.CouponId,
+            couponName = order.Order.Coupon.CouponName,
             productId = order.Product.ProductName,
             createdAt = order.CreatedAt,
             updatedAt = order.UpdatedAt,
