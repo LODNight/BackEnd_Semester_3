@@ -14,11 +14,21 @@ public class AccountController : Controller
 {
     private AccountService accountService;
     private IConfiguration configuration;
+    private readonly IJwtService _jwtService;
 
-    public AccountController(AccountService accountService, IConfiguration configuration)
+
+    public AccountController(AccountService accountService, IConfiguration configuration, IJwtService jwtService)
     {
         this.accountService = accountService;
         this.configuration = configuration;
+        _jwtService = jwtService;
+    }
+
+    [HttpGet("protected-resource")]
+    [Authorize(Roles = "admin")]
+    public IActionResult GetProtectedResource()
+    {
+        return Ok("This is a protected resource for admin only.");
     }
 
 
