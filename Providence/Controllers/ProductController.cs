@@ -66,7 +66,7 @@ public class ProductController : Controller
 
     [Produces("application/json")]
     [HttpGet("edit/{id}/{newHide}")]
-    public IActionResult hideProduct(int id, int newHide)
+    public IActionResult hideProduct(int id, int newHide) //nhớ tải Microsoft.Data.SqlClient về mới chạy đoạn dưới
     {
         string connectionString = configuration.GetConnectionString("DefaultConnection");
         try
