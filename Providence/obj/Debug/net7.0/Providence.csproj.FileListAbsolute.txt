@@ -383,3 +383,13 @@ C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\obj\Debug\net7.0\scopedcss
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.csproj.CopyComplete
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\obj\Debug\net7.0\ref\Providence.dll
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.csproj.AssemblyReference.cache
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.AssemblyInfoInputs.cache
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.AssemblyInfo.cs
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.csproj.CoreCompileInputs.cache
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.MvcApplicationPartsAssemblyInfo.cs
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.MvcApplicationPartsAssemblyInfo.cache
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.dll
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\refint\Providence.dll
+D:\Chau_folder\NetCore\Semester_3_API\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.pdb
