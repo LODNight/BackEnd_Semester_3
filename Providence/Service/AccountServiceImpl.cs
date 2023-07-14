@@ -85,7 +85,7 @@ public class AccountServiceImpl : AccountService
     // For Update If dont change password
     public Account findByIdNoTracking(int id)
     {
-        return db.Accounts.AsNoTracking().SingleOrDefault(a => a.AccountId == id);
+        return db?.Accounts.AsNoTracking().SingleOrDefault(a => a.AccountId == id);
     }
 
     // Delete 
@@ -116,13 +116,15 @@ public class AccountServiceImpl : AccountService
             firstname = acc.Firstname,
             lastname = acc.Lastname,
             email = acc.Email,
+            password = acc.Password,
             phoneNumber = acc.Phone,
             gender = acc.Gender,
-            address = acc.Address,
+            address = acc.Address.RoadName,
             avatar = acc.Avatar,
             roleid = acc.RoleId,
             rolename = acc.Role.RoleName,
             status = acc.Status,
+            securitycode = acc.SecurityCode,
             createdAt = acc.CreatedAt,
             updatedAt = acc.UpdatedAt,
         }).ToList();

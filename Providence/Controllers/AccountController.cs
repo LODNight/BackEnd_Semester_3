@@ -10,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Text;
 
@@ -24,16 +25,11 @@ public class AccountController : Controller
 
     public AccountController(AccountService accountService, IConfiguration configuration)
     {
+
         this.accountService = accountService;
         this.configuration = configuration;
     }
 
-    [HttpGet("protected-resource")]
-    [Authorize(Roles = "admin")]
-    public IActionResult GetProtectedResource()
-    {
-        return Ok("This is a protected resource for admin only.");
-    }
 
 
     // ===============================
@@ -149,7 +145,7 @@ public class AccountController : Controller
     }
 
 
-    // Create Token  
+    //Create Token
     private string CreateToken(Account account)
     {
         List<Claim> claims = new List<Claim>
@@ -163,7 +159,7 @@ public class AccountController : Controller
         var token = new JwtSecurityToken(
             claims: claims,
             expires: DateTime.Now.AddDays(1),
-            signingCredentials: creds    
+            signingCredentials: creds
             );
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -179,7 +175,7 @@ public class AccountController : Controller
     {
         try
         {
-            if (accountService.CheckMail(account.Email))
+            if (accountService.CheckMail(account?.Email))
             {
                 return BadRequest("Email have Exist");
             }
@@ -195,7 +191,7 @@ public class AccountController : Controller
                 //Send mail
                 var content = "Security Code: " + account.SecurityCode ;
                 content += "<br><hr><br>";
-                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode="+ account.SecurityCode +"'>Click here to Verify Email</a>";
+                content += "<a href='http://localhost:5271/api/account/verify?email="+ account.Email+ "&securityCode=" + account.SecurityCode +"'>Click here to Verify Email</a>";
                 var mailHelper = new MailHelper(configuration);
                 mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
 
@@ -238,12 +234,10 @@ public class AccountController : Controller
     {
         try
         {
-            account.CreatedAt = account.CreatedAt;
             account.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
-
                 status = accountService.updateInformation(account)
             });
 

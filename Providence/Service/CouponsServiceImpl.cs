@@ -46,12 +46,12 @@ public class CouponsServiceImpl : CouponsService
         {
             id = coupon.CouponId,
             couponname = coupon.CouponName,
-            coupontypeid = coupon.CouponsTypeId,
-            coupontypename = coupon.CouponsType.NameType,
+            coupontypeid = coupon.CouponTypeId,
+            coupontypename = coupon.CouponType.TypeName,
             discount = coupon.Discount,
             discription = coupon.Description,
+            expiredAt = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
-            updatedAt = coupon.UpdatedAt,
         }).ToList();
     }
 
@@ -62,12 +62,12 @@ public class CouponsServiceImpl : CouponsService
         {
             id = coupon.CouponId,
             couponname = coupon.CouponName,
-            coupontypeid = coupon.CouponsTypeId,
-            coupontypename = coupon.CouponsType.NameType,
+            coupontypeid = coupon.CouponTypeId,
+            coupontypename = coupon.CouponType.TypeName,
             discount = coupon.Discount,
             discription = coupon.Description,
+            expiredAt = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
-            updatedAt = coupon.UpdatedAt,
         }).ToList();
     }
 

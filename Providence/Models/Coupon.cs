@@ -15,13 +15,13 @@ public partial class Coupon
 
     public string? Description { get; set; }
 
-    public DateTime? ExpiredDay { get; set; }
+    public DateTime? ExpiredAt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public virtual ICollection<AccountCoupon> AccountCoupons { get; set; } = new List<AccountCoupon>();
 
-    public virtual CouponsType? CouponType { get; set; }
+    public virtual CouponType? CouponType { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

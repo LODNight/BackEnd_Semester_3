@@ -3214,6 +3214,7 @@
       "Microsoft.EntityFrameworkCore.Proxies >= 7.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.8",
+      "Microsoft.IdentityModel.Tokens >= 6.32.0",
       "Newtonsoft.Json >= 13.0.3",
       "PagedList.Core.Mvc >= 3.0.0",
       "System.IdentityModel.Tokens.Jwt >= 6.32.0"
@@ -3293,6 +3294,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.8, )"
+          },
+          "Microsoft.IdentityModel.Tokens": {
+            "target": "Package",
+            "version": "[6.32.0, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
