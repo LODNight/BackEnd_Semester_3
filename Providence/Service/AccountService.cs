@@ -23,4 +23,10 @@ public interface AccountService
     public dynamic findbyEmail(string email);
     public dynamic findbyName(string keyword);
     public dynamic findbyStatus(bool status);
+
+    // Check Email
+    public bool CheckMail(string username);
+    public dynamic VerifyCode(string account);
+    public bool Active(Verify verify);
+
 }

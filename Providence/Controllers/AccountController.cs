@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.SqlServer.Server;
 using Providence.Helper;
 using Providence.Helpers;
@@ -8,7 +9,9 @@ using Providence.Service;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
-
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Providence.Controllers;
 [Route("api/account")]
@@ -125,16 +128,54 @@ public class AccountController : Controller
     [Produces("application/json")]
     [HttpPost("login")]
     public IActionResult Login([FromBody] Account account)
-    {   
+    {
+
+        if (!accountService.CheckMail(account.Email))
+        {
+            return BadRequest("Email not found");
+        }
+
         try
         {
-            return Ok(accountService.login(account.Email, account.Password));
+            string token = CreateToken(account);
+            return Ok(token);
+
+            });
+            });
+            });
+            });
+            });
+            });
+            });
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
             return BadRequest();
         }
+    }
+
+
+    // Create Token  
+    private string CreateToken(Account account)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, account.Email)
+        };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value!));
+
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: creds    
+            );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        return jwt;
     }
 
     // Create New Account
@@ -145,58 +186,38 @@ public class AccountController : Controller
     {
         try
         {
+            if (accountService.CheckMail(account.Email))
+            {
+                return BadRequest("Email have Exist");
+            }
+
             account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
-            account.Status = true;
+            account.Status = false;
             account.SecurityCode = RandomHelper.RandomString(4);
             // Mail
+
+
             if (accountService.register(account))
             {
                 //Send mail
-                var content = "Security Code: " + account.SecurityCode;
+                var content = "Security Code: " + account.SecurityCode ;
+                content += "<br><hr><br>";
+                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode="+ account.SecurityCode +"'>Click here to Verify Email</a>";
                 var mailHelper = new MailHelper(configuration);
                 mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
 
-                return RedirectToAction("verify", "account", new
-                {
-                    email = account.Email
-                });
+                return Ok(account.Email);
 
             }
             else
             {
-                return Ok(accountService.register(account));
+                return Ok(new
+                {
+
+                    status = accountService.register(account)
+                });
             }
 
-
-            //// Other
-            //try
-            //{
-            //    var mailHelper = new MailHelper(configuration);
-            //    var content = "Fullname: " + contact.FullName;
-            //    content += "<br>Email: " + contact.Email;
-            //    content += "<br>Phone: " + contact.Phone;
-            //    content += "<br>Title: " + contact.Title;
-            //    content += "<br>Content: " + contact.Content;
-            //    if (mailHelper.Send(contact.Email, configuration["Gmail:Username"], contact.Title, content))
-            //    {
-            //        TempData["msg"] = "Send Successfully";
-            //    }
-            //    else
-            //    {
-            //        TempData["msg"] = "Failed";
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    TempData["msg"] = "Failed";
-            //}
-
-            ///--------------
-            //return Ok(new
-            //{
-
-            //    status = accountService.register(account)
-            //});
         }
         catch (Exception ex)
         {
@@ -205,6 +226,14 @@ public class AccountController : Controller
         }
 
         
+    }
+    
+    // Create New Account
+    [Produces("application/json")]
+    [HttpPut("verify")]
+    public IActionResult VerifyCode(Verify verify)
+    {
+        return Ok(accountService.Active(verify));
     }
 
 
