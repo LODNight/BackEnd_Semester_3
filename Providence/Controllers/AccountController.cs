@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.SqlServer.Server;
 using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
+using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -14,14 +16,13 @@ public class AccountController : Controller
 {
     private AccountService accountService;
     private IConfiguration configuration;
-    private readonly IJwtService _jwtService;
+    //private readonly IJwtService _jwtService;
 
 
-    public AccountController(AccountService accountService, IConfiguration configuration, IJwtService jwtService)
+    public AccountController(AccountService accountService, IConfiguration configuration)
     {
         this.accountService = accountService;
         this.configuration = configuration;
-        _jwtService = jwtService;
     }
 
     [HttpGet("protected-resource")]
