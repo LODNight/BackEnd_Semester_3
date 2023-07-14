@@ -74,7 +74,6 @@ public class CategoryController : Controller
     {
         try
         {
-            category.UpdatedAt = DateTime.Now;
             return Ok(new
             {
                 status = categoryService.Edit(category)
