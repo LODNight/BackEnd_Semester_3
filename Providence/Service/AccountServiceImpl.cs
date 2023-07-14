@@ -213,4 +213,22 @@ public class AccountServiceImpl : AccountService
             updatedAt = acc.UpdatedAt,
         }).ToList();
     }
+
+    public bool CheckMail(string email)
+    {
+        return db.Accounts.Count(p => p.Email == email) > 0;
+    }
+
+    public dynamic VerifyCode(string account)
+    {
+        try
+        {
+            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return db.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
