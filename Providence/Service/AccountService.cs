@@ -27,4 +27,6 @@ public interface AccountService
     // Check Email
     public bool CheckMail(string username);
     public dynamic VerifyCode(string account);
+    public bool Active(Verify verify);
+
 }

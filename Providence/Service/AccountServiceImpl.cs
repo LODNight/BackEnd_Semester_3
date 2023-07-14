@@ -230,4 +230,24 @@ public class AccountServiceImpl : AccountService
             return false;
         }
     }
+
+    public bool Active(Verify verify)
+    {
+        try
+        {
+            var account = db.Accounts.FirstOrDefault(a=>a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
+            if (account == null)
+            {
+                return false;
+            }
+            account.Status = true;
+            db.Accounts.Update(account);
+            return db.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+
+        }
+    }
 }
