@@ -16,14 +16,13 @@ public class AccountController : Controller
 {
     private AccountService accountService;
     private IConfiguration configuration;
-    private readonly IJwtService _jwtService;
+    //private readonly IJwtService _jwtService;
 
 
-    public AccountController(AccountService accountService, IConfiguration configuration, IJwtService jwtService)
+    public AccountController(AccountService accountService, IConfiguration configuration)
     {
         this.accountService = accountService;
         this.configuration = configuration;
-        _jwtService = jwtService;
     }
 
     [HttpGet("protected-resource")]
