@@ -135,7 +135,6 @@ public class AccountController : Controller
         {
             string token = CreateToken(account);
             return Ok(token);
-
         }
         catch (Exception ex)
         {
@@ -200,7 +199,11 @@ public class AccountController : Controller
             }
             else
             {
-                return BadRequest("Wrong");
+                return Ok(new
+                {
+
+                    status = accountService.register(account)
+                });
             }
 
         }
@@ -236,10 +239,7 @@ public class AccountController : Controller
         {
             account.UpdatedAt = DateTime.Now;
 
-            return Ok(new
-            {
-                status = accountService.updateInformation(account)
-            });
+            return Ok(accountService.updateInformation(account));
 
         }
         catch (Exception ex)
@@ -268,11 +268,7 @@ public class AccountController : Controller
                 account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
             }
 
-            return Ok(new
-            {
-
-                status = accountService.changePass(account)
-            });
+            return Ok(accountService.changePass(account));
 
         }
         catch (Exception ex)
@@ -293,10 +289,7 @@ public class AccountController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = accountService.Delete(id)
-            });
+            return Ok(accountService.Delete(id));
         }
         catch (Exception ex)
         {
