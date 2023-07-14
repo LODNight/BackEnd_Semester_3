@@ -1,6 +1,5 @@
 ﻿
 
-using Azure.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Providence.Models;
@@ -60,7 +59,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(account).State = EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch
@@ -74,7 +73,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(account).State = EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch
