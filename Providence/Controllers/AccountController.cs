@@ -139,14 +139,6 @@ public class AccountController : Controller
         {
             string token = CreateToken(account);
             return Ok(token);
-
-            });
-            });
-            });
-            });
-            });
-            });
-            });
         }
         catch (Exception ex)
         {
