@@ -25,4 +25,8 @@ public class BlogService : IBlogService
             return false;
         }
     }
+
+    public dynamic ShowBlogsUnhide() => _databaseContext.Blogs.Where(p => p.Hide == false).ToList();
+
+
 }

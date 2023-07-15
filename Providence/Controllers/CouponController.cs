@@ -1,28 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Providence.Helper;
+using Microsoft.SqlServer.Server;
+using Newtonsoft.Json;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using Providence.Service.Implement;
-using Providence.Service.Implement.OutCRUD;
 using Providence.Service.Interface;
 using System.Diagnostics;
+using System.Globalization;
+using static Azure.Core.HttpHeader;
+
 
 namespace Providence.Controllers;
 [Route("api/[controller]")]
-public class BlogController : Controller
+[ApiController]
+public class CouponController : Controller
 {
-    private readonly IServiceCRUD<Blog> _serviceCRUD;
-    private readonly IBlogService blogService;
-    private IConfiguration configuration;
-
-    public BlogController(IServiceCRUD<Blog> serviceCRUD, IConfiguration configuration, IBlogService blogService)
+    private readonly IServiceCRUD<Coupon> _serviceCRUD;
+    public CouponController(IServiceCRUD<Coupon> serviceCRUD)
     {
         _serviceCRUD = serviceCRUD;
-        this.configuration = configuration;
-        this.blogService = blogService;
+        
     }
 
+    // GET
     [Produces("application/json")]
     [HttpGet("Read")]
     public IActionResult Read()
@@ -37,8 +38,6 @@ public class BlogController : Controller
         }
     }
 
-
-    [Consumes("application/json")]
     [Produces("application/json")]
     [HttpGet("Get")]
     public IActionResult Get(int id)
@@ -56,22 +55,22 @@ public class BlogController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Blog blog)
+    public IActionResult Create([FromBody] Coupon coupon)
 
     {
         try
         {
-            blog.CreatedAt = DateTime.Now;
-            blog.UpdatedAt = DateTime.Now;
+            coupon.CreatedAt = DateTime.Now;
 
-
-            return Ok(_serviceCRUD.Create(blog));
+            return Ok(_serviceCRUD.Create(coupon));
         }
         catch
         {
             return BadRequest();
         }
     }
+
+    // Delete
 
     [Produces("application/json")]
     [HttpDelete("Delete")]
@@ -87,31 +86,17 @@ public class BlogController : Controller
         }
     }
 
+
+    // PUT
+
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Blog blog)
+    public IActionResult Update([FromBody] Coupon coupon)
     {
         try
         {
-            blog.UpdatedAt = DateTime.Now;
-            return Ok(_serviceCRUD.Update(blog));
-        }
-        catch
-        {
-            return BadRequest();
-        }
-    }
-
-    [Consumes("application/json")]
-    [Produces("application/json")]
-    [HttpPut("Hide")]
-    public IActionResult Hide(int id)
-    {
-        try
-        {
-
-            return Ok(blogService.Hide(id));
+            return Ok(_serviceCRUD.Update(coupon));
         }
         catch
         {

@@ -23,6 +23,7 @@ builder.Services.AddScoped<DatabaseContext>();
 
 // Blog
 builder.Services.AddScoped<IServiceCRUD<Blog>, BlogCRUD>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();
 // Product
 builder.Services.AddScoped<IServiceCRUD<Product>, ProductCRUD>();
@@ -34,14 +35,17 @@ builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IServiceCRUD<AccountCoupon>, AccountCouponCRUD>();
 
+// Coupon
+builder.Services.AddScoped<IServiceCRUD<Coupon>, CouponCRUD>();
+builder.Services.AddScoped<IServiceCRUD<CouponType>, CouponTypeCRUD>();
+
 builder.Services.AddScoped<IServiceCRUD<AdministrativeUnit>, AdministrativeUnitCRUD>();
 builder.Services.AddScoped<IServiceCRUD<CartDetail>, CartDetailCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Role>, RoleCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Category>, CategoryCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Cart>, CartCRUD>();
 builder.Services.AddScoped<IServiceCRUD<ProductImage>, ProductImageCRUD>();
-builder.Services.AddScoped<IServiceCRUD<Coupon>, CouponCRUD>();
-builder.Services.AddScoped<IServiceCRUD<CouponType>, CouponTypeCRUD>();
+
 builder.Services.AddScoped<IServiceCRUD<OrderDetail>, OrderDetailCRUD>();
 builder.Services.AddScoped<IServiceCRUD<OrderStatus>, OrderStatusCRUD>();
 builder.Services.AddScoped<IServiceCRUD<District>, DistrictCRUD>();

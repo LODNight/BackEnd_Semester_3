@@ -2,5 +2,6 @@
 
 public interface IBlogService
 {
-    public dynamic Hide(int blogId);
+    public dynamic Hide (int blogId);
+    public dynamic ShowBlogsUnhide();
 }
