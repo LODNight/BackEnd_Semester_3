@@ -1,14 +1,9 @@
 
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Providence;
 using Providence.Converters;
 using Providence.Models;
-using Providence.Service;
 using Providence.Service.Implement;
+using Providence.Service.Implement.OutCRUD;
 using Providence.Service.Interface;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,26 +16,44 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 });
 
 
-//var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
-//builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));
-
 builder.Services.AddScoped<DatabaseContext>();
 
 
+// =============================== Add Scoped Service
+
+// Blog
+builder.Services.AddScoped<IServiceCRUD<Blog>, BlogCRUD>();
+builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();
+// Product
+builder.Services.AddScoped<IServiceCRUD<Product>, ProductCRUD>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IServiceCRUD<ProductReview>, ProductReviewCRUD>();
+
+// Account
 builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IServiceCRUD<AccountCoupon>, AccountCouponCRUD>();
 
-//builder.Services.AddScoped<AccountService, AccountServiceImpl>();
-builder.Services.AddScoped<BlogService, BlogServiceImpl>();
-builder.Services.AddScoped<CouponsService, CouponsServiceImpl>();
-builder.Services.AddScoped<CategoryService, CategoryServiceImpl>();
-builder.Services.AddScoped<ProductService, ProductServiceImpl>();
-builder.Services.AddScoped<OrderService, OrderServiceImpl>();
-builder.Services.AddScoped<OrderDetailService, OrderDetailServiceImpl>();
-builder.Services.AddScoped<WishlistService, WishlistServiceImpl>();
-builder.Services.AddScoped<CartService, CartServiceImpl>();
-builder.Services.AddScoped<AddressService, AddressServiceImpl>();
-builder.Services.AddScoped<ManufacturerService, ManufacturerServiceImpl>();
+builder.Services.AddScoped<IServiceCRUD<AdministrativeUnit>, AdministrativeUnitCRUD>();
+builder.Services.AddScoped<IServiceCRUD<CartDetail>, CartDetailCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Role>, RoleCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Category>, CategoryCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Cart>, CartCRUD>();
+builder.Services.AddScoped<IServiceCRUD<ProductImage>, ProductImageCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Coupon>, CouponCRUD>();
+builder.Services.AddScoped<IServiceCRUD<CouponType>, CouponTypeCRUD>();
+builder.Services.AddScoped<IServiceCRUD<OrderDetail>, OrderDetailCRUD>();
+builder.Services.AddScoped<IServiceCRUD<OrderStatus>, OrderStatusCRUD>();
+builder.Services.AddScoped<IServiceCRUD<District>, DistrictCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Province>, ProvinceCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Wishlist>, WishlistCRUD>();
+builder.Services.AddScoped<IServiceCRUD<PaymentMethod>, PaymentMethodCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Order>, OrderCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Manufacturer>, ManufacturerCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Address>, AddressCRUD>();
+builder.Services.AddScoped<IServiceCRUD<Ward>, WardCRUD>();
 
+// ===========================================
 
 var app = builder.Build();
 

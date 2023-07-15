@@ -1,164 +1,159 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using Providence.Helper;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Implement.OutCRUD;
+using Providence.Service.Interface;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Providence.Controllers;
-[Route("api/product")]
+[Route("api/[controller]")]
+[ApiController]
 public class ProductController : Controller
 {
-    private ProductService productService;
+    private readonly IServiceCRUD<Product> _serviceCRUD;
+    private readonly IProductService _productService;
     private IWebHostEnvironment webHostEnvironment;
-    private IConfiguration configuration;
-
-    public ProductController(ProductService productService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
+    private readonly IConfiguration configuration;
+    public ProductController(IServiceCRUD<Product> serviceCRUD, IProductService productService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
     {
-        this.productService = productService;
+        _serviceCRUD = serviceCRUD;
+        _productService = productService;
         this.webHostEnvironment = webHostEnvironment;
         this.configuration = configuration;
     }
 
+
+    // GET
     [Produces("application/json")]
-    [HttpGet("findAll")]
-    public IActionResult findAll()
+    [HttpGet("Read")]
+    public IActionResult Read()
     {
         try
         {
-            return Ok(productService.findAll());
+            return Ok(_serviceCRUD.Read());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
     [Produces("application/json")]
-    [HttpGet("findDetailById/{id}")]
-    public IActionResult FindDetailById(int id)
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
     {
         try
         {
-            return Ok(productService.findDetailById(id));
+            return Ok(_serviceCRUD.Get(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
     [Produces("application/json")]
-    [HttpGet("searchByKeyword/{keyword}")]
-    public IActionResult SearchByKeyword(string keyword)
+    [HttpGet("ProductINPQ")]
+    public IActionResult ProductINPQ()
     {
         try
         {
-            return Ok(productService.searchByKeyword(keyword));
+            return Ok(_productService.ReadINPQ());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
+    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("edit/{id}/{newHide}")]
-    public IActionResult hideProduct(int id, int newHide) //nhớ tải Microsoft.Data.SqlClient về mới chạy đoạn dưới
-    {
-        string connectionString = configuration.GetConnectionString("DefaultConnection");
-        try
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE Product SET hide = @newHide WHERE product_id = @id";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@newHide", newHide);
-                    command.Parameters.AddWithValue("@id", id);
-
-                    connection.Open();
-                    int rowsAffected = command.ExecuteNonQuery();
-                    connection.Close();
-
-                    if (rowsAffected > 0)
-                    {
-                        return Ok(true);
-                    }
-                    else
-                    {
-                        return NotFound("Product not found.");
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
-
-    [Produces("application/json")]
-    [HttpGet("find/{id}")]
-    public IActionResult Find(int id)
-    {
-        try
-        {
-            return Ok(productService.find(id));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            return BadRequest();
-        }
-    }
-
-    [Produces("application/json")]
-    [HttpPost("create")]
+    [HttpPost("Create")]
     public IActionResult Create([FromBody] Product product)
+
     {
         try
         {
-            return Ok(productService.Create(product));
+            product.CreatedAt = DateTime.Now;
+            product.UpdatedAt = DateTime.Now;
+
+            return Ok(_serviceCRUD.Create(product));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
     [Produces("application/json")]
-    [HttpPut("edit")]
-    public IActionResult Edit([FromBody] Product product)
-    {
-        try
-        {
-            return Ok(productService.Edit(product));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
-
-    [Produces("application/json")]
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("Delete")]
     public IActionResult Delete(int id)
     {
         try
         {
-            return Ok(productService.Delete(id));
+            return Ok(_serviceCRUD.Delete(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
+
+
+    // PUT
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] Product product)
+    {
+        try
+        {
+            product.UpdatedAt = DateTime.Now;
+            return Ok(_serviceCRUD.Update(product));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+    
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Hide")]
+    public IActionResult Hide(int id)
+    {
+        try
+        {
+            
+            return Ok(_productService.HideProduct(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [HttpPost("AddProduct")]
+    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    {
+        try
+        {
+            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
+            return Ok(_productService.AddProduct(files,productFile));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
 }
