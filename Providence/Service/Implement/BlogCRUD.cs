@@ -1,5 +1,6 @@
 ﻿using Providence.Models;
 using Providence.Service.Interface;
+using static Azure.Core.HttpHeader;
 
 namespace Providence.Service.Implement;
 
@@ -69,11 +70,20 @@ public class BlogCRUD : IServiceCRUD<Blog>
         updatedAt = p.UpdatedAt,
     }).ToList();
 
-    public bool Update(Blog entity)
+    public bool Update(Blog blog)
     {
         try
         {
-            _databaseContext.Blogs.Update(entity);
+            // Save Created At
+            var existingBlog = _databaseContext.Blogs.FirstOrDefault(a => a.BlogId == blog.BlogId);
+            if (existingBlog == null)
+            {
+                return false;
+            }
+            blog.CreatedAt = existingBlog.CreatedAt;
+
+            // Cập nhật các thuộc tính khác
+            _databaseContext.Entry(existingBlog).CurrentValues.SetValues(blog);
             return _databaseContext.SaveChanges() > 0;
         }
         catch (Exception)
