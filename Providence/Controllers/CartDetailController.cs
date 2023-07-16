@@ -1,0 +1,101 @@
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Providence.Models;
+using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Interface;
+using System.Diagnostics;
+namespace Providence.Controllers;
+[Route("api/[controller]")]
+public class CartDetailController : Controller
+{
+    private readonly IServiceCRUD<CartDetail> _serviceCRUD;
+    private readonly ICartDetailService cartDetailService;
+
+    public CartDetailController(IServiceCRUD<CartDetail> serviceCRUD, ICartDetailService cartDetailService)
+    {
+        _serviceCRUD = serviceCRUD;
+        this.cartDetailService = cartDetailService;
+    }
+
+    [Produces("application/json")]
+    [HttpGet("Read")]
+    public IActionResult Read()
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Read());
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Get(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("Create")]
+    public IActionResult Create([FromBody] CartDetail cartDetail)
+
+    {
+        try
+        {
+            cartDetail.CreatedAt = DateTime.Now;
+            cartDetail.UpdatedAt = DateTime.Now;
+
+
+            return Ok(_serviceCRUD.Create(cartDetail));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Produces("application/json")]
+    [HttpDelete("Delete")]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Delete(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] CartDetail cartDetail)
+    {
+        try
+        {
+            cartDetail.UpdatedAt = DateTime.Now;
+            return Ok(_serviceCRUD.Update(cartDetail));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+}
