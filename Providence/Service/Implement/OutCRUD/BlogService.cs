@@ -65,7 +65,7 @@ public class BlogService : IBlogService
     }
 
 
-    public bool UpdateBlog(int blogId, IFormFile[] file, Blog blog)
+    public bool UpdateBlog(int blogId, IFormFile file, Blog blog)
     {
         try
         {
@@ -79,11 +79,16 @@ public class BlogService : IBlogService
                 file.CopyTo(fileStream);
             }
 
-            return _databaseContext.SaveChanges() >0 ;
+            return _databaseContext.SaveChanges() > 0;
         }
         catch
         {
             return false;
         }
+    }
+
+    public bool AddBlog(IFormFile[] file, Blog blog)
+    {
+        throw new NotImplementedException();
     }
 }
