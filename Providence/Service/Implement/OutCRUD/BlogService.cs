@@ -36,7 +36,7 @@ public class BlogService : IBlogService
 
     public dynamic ShowBlogsUnhide() => _databaseContext.Blogs.Where(p => p.Hide == false).ToList();
 
-    public bool AddBlog(IFormFile[] file, Blog blog)
+    public bool AddBlog(IFormFile file, Blog blog)
     {
         try
         {
