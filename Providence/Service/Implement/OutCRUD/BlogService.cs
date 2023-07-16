@@ -89,4 +89,9 @@ public class BlogService : IBlogService
             return BadRequest();
         }
     }
+
+    public bool AddBlog(IFormFile[] file, Blog blog)
+    {
+        throw new NotImplementedException();
+    }
 }

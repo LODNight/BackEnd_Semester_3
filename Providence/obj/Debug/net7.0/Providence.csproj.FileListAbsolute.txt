@@ -397,3 +397,13 @@ C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\runtimes\
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Microsoft.OpenApi.dll
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Providence.staticwebassets.runtime.json
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.csproj.AssemblyReference.cache
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.AssemblyInfoInputs.cache
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.AssemblyInfo.cs
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.csproj.CoreCompileInputs.cache
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.MvcApplicationPartsAssemblyInfo.cs
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.MvcApplicationPartsAssemblyInfo.cache
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.dll
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\refint\Providence.dll
+D:\Programming Life\Angular\project.angular\sem3\BackEnd_Semester_3\Providence\obj\Debug\net7.0\Providence.pdb
