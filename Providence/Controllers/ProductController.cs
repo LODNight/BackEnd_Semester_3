@@ -31,7 +31,7 @@ public class ProductController : Controller
 
     // GET
     [Produces("application/json")]
-    [HttpGet("Read")]
+    [HttpGet("findAll")]
     public IActionResult Read()
     {
         try
@@ -45,7 +45,7 @@ public class ProductController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("Get")]
+    [HttpGet("find")]
     public IActionResult Get(int id)
     {
         try
@@ -59,7 +59,7 @@ public class ProductController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("ProductINPQ")]
+    [HttpGet("product-inpq")]
     public IActionResult ProductINPQ()
     {
         try
@@ -74,7 +74,7 @@ public class ProductController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Create")]
+    [HttpPost("create")]
     public IActionResult Create([FromBody] Product product)
 
     {
@@ -92,7 +92,7 @@ public class ProductController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("Delete")]
+    [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
         try
@@ -110,7 +110,7 @@ public class ProductController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Update")]
+    [HttpPut("update")]
     public IActionResult Update([FromBody] Product product)
     {
         try
@@ -142,7 +142,7 @@ public class ProductController : Controller
 
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("AddProduct")]
+    [HttpPost("add-product")]
     public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
     {
         try
@@ -158,7 +158,7 @@ public class ProductController : Controller
     
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("UpdateProduct")]
+    [HttpPost("update-product")]
     public IActionResult UppdateProduct(int productId, IFormFile[] files, IFormCollection formData)
     {
         try

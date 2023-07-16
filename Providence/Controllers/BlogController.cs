@@ -25,7 +25,7 @@ public class BlogController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("Read")]
+    [HttpGet("findAll")]
     public IActionResult Read()
     {
         try
@@ -41,7 +41,7 @@ public class BlogController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("Get")]
+    [HttpGet("find")]
     public IActionResult Get(int id)
     {
         try
@@ -56,7 +56,7 @@ public class BlogController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Create")]
+    [HttpPost("create")]
     public IActionResult Create([FromBody] Blog blog)
 
     {
@@ -75,7 +75,7 @@ public class BlogController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("Delete")]
+    [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
         try
@@ -90,7 +90,7 @@ public class BlogController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Update")]
+    [HttpPut("update")]
     public IActionResult Update([FromBody] Blog blog)
     {
         try
@@ -106,7 +106,7 @@ public class BlogController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Hide")]
+    [HttpPut("hide")]
     public IActionResult Hide(int id)
     {
         try
@@ -122,13 +122,13 @@ public class BlogController : Controller
 
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("AddBlog")]
-    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    [HttpPost("addBlog")]
+    public IActionResult UploadFiles(IFormFile files, IFormCollection formData)
     {
         try
         {
-            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
-            return Ok(blogService.AddProduct(files, productFile));
+            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Product"]);
+            return Ok(blogService.AddBlog(files, blogFile));
         }
         catch
         {

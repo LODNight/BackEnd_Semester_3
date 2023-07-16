@@ -32,7 +32,7 @@ public class AccountController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("Read")]
+    [HttpGet("findAll")]
     public IActionResult Read()
     {
         try
@@ -47,7 +47,7 @@ public class AccountController : Controller
     
     // Show Active When false
     [Produces("application/json")]
-    [HttpGet("ShowAccountActive")]
+    [HttpGet("show-account-active")]
     public IActionResult ShowAccountActive()
     {
         try
@@ -64,7 +64,7 @@ public class AccountController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("Get")]
+    [HttpGet("find")]
     public IActionResult Get(int id)
     {
         try
@@ -78,7 +78,7 @@ public class AccountController : Controller
     }
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public IActionResult Create([FromBody] Account account)
 
     {
@@ -121,7 +121,7 @@ public class AccountController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("Delete")]
+    [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
         try
@@ -136,7 +136,7 @@ public class AccountController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Update")]
+    [HttpPut("update")]
     public IActionResult Update([FromBody] Account account)
     {
         try
@@ -152,7 +152,7 @@ public class AccountController : Controller
     }
     
     [Consumes("application/json")]
-    [HttpPut("ChangePass")]
+    [HttpPut("changePass")]
     public IActionResult ChangePass([FromBody] ChangePass changePass)
     {
         try
