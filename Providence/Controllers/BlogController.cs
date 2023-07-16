@@ -126,7 +126,7 @@ public class BlogController : Controller
     {
         try
         {
-            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Product"]);
+            var blogFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
             return Ok(blogService.AddBlog(files, blogFile));
         }
         catch
