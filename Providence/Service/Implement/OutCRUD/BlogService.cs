@@ -86,9 +86,4 @@ public class BlogService : IBlogService
             return false;
         }
     }
-
-    public bool AddBlog(IFormFile[] file, Blog blog)
-    {
-        throw new NotImplementedException();
-    }
 }
