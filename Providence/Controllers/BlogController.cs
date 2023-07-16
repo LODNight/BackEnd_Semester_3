@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
