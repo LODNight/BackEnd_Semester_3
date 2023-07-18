@@ -139,10 +139,11 @@ public class ProductController : Controller
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
     [HttpPost("add-product")]
-    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    public IActionResult UploadFiles(IFormFile[] files, [FromForm] IFormCollection formData)
     {
         try
         {
+
             var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
             return Ok(_productService.AddProduct(files,productFile));
         }

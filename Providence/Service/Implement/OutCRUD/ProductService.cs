@@ -47,8 +47,10 @@ public class ProductService : IProductService
         {
             _databaseContext.Products.Add(product);
             _databaseContext.SaveChanges();
-
+            
+            // Upload Image
             var urls = new List<string>();
+
             Debug.WriteLine("File Info");
             if (files != null && files.Length > 0)
             {

@@ -51,7 +51,7 @@ public class DistrictController : Controller
     } 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find-district-by-province/{id}")]
+    [HttpGet("find-district-by-province/{code}")]
     public IActionResult findDistrictByProvince(string code)
     {
         try
